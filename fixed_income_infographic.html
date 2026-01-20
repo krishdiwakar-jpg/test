@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which Liabilities Are Fixed-Income Instruments?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a2942;
+            --primary-blue: #2c4a7c;
+            --accent-gold: #d4a84b;
+            --accent-teal: #3d9a8b;
+            --light-cream: #f8f6f1;
+            --soft-gray: #e8e6e1;
+            --text-dark: #2d3748;
+            --fixed-income-green: #2d8b6f;
+            --other-liability: #7c8798;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(145deg, #f0ebe3 0%, #e8e3db 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .infographic-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--light-cream);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 80px rgba(26, 41, 66, 0.15),
+                0 10px 30px rgba(26, 41, 66, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            padding: 45px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 168, 75, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(61, 154, 139, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 span {
+            color: var(--accent-gold);
+        }
+
+        /* Content Area */
+        .content {
+            padding: 50px;
+        }
+
+        /* Key Insight Box */
+        .key-insight {
+            background: linear-gradient(135deg, #f7f5f0 0%, #eeebe4 100%);
+            border-left: 5px solid var(--accent-gold);
+            padding: 28px 32px;
+            margin-bottom: 45px;
+            border-radius: 0 16px 16px 0;
+            position: relative;
+        }
+
+        .key-insight::before {
+            content: '💡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 28px;
+            background: var(--light-cream);
+            padding: 5px 10px;
+            border-radius: 50%;
+        }
+
+        .key-insight h3 {
+            color: var(--primary-dark);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .key-insight p {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .key-insight .highlight {
+            background: linear-gradient(120deg, rgba(212, 168, 75, 0.3) 0%, rgba(212, 168, 75, 0.1) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Balance Sheet Visualization */
+        .balance-sheet-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 40px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+        }
+
+        .balance-sheet-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .assets-equity-block {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .block {
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .assets-block {
+            background: linear-gradient(145deg, #e3eef7 0%, #ccdff2 100%);
+            border: 2px solid #b8d4ed;
+        }
+
+        .assets-block.short {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .assets-block.long {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .equity-block {
+            background: linear-gradient(145deg, #f5e6d3 0%, #edd8c0 100%);
+            border: 2px solid #e0c9a8;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block-label {
+            font-size: 1rem;
+            color: var(--primary-dark);
+        }
+
+        /* Liabilities Grid */
+        .liabilities-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .liabilities-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .header-label {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--other-liability);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #d0d5dc;
+        }
+
+        .header-label.fixed-income {
+            color: var(--fixed-income-green);
+            border-bottom-color: var(--fixed-income-green);
+        }
+
+        .liability-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .liability-card {
+            padding: 18px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .liability-card:hover {
+            transform: translateX(5px);
+        }
+
+        .liability-card.other {
+            background: linear-gradient(135deg, #f5f6f8 0%, #ebedf0 100%);
+            border: 2px solid #d8dce3;
+        }
+
+        .liability-card.fixed-income {
+            background: linear-gradient(135deg, #e8f5f1 0%, #d4ede6 100%);
+            border: 2px solid var(--fixed-income-green);
+            box-shadow: 0 4px 15px rgba(45, 139, 111, 0.15);
+        }
+
+        .liability-card.fixed-income::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--fixed-income-green);
+        }
+
+        .liability-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .liability-card.other .liability-icon {
+            background: #e0e4ea;
+        }
+
+        .liability-card.fixed-income .liability-icon {
+            background: rgba(45, 139, 111, 0.2);
+        }
+
+        .liability-info {
+            flex: 1;
+        }
+
+        .liability-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+            margin-bottom: 3px;
+        }
+
+        .liability-desc {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .liability-card.fixed-income .liability-desc {
+            color: var(--fixed-income-green);
+        }
+
+        /* Legend & Key Takeaways */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 45px;
+        }
+
+        .legend-box {
+            background: #fafaf8;
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid #e8e6e1;
+        }
+
+        .legend-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+        }
+
+        .legend-color.fixed {
+            background: linear-gradient(135deg, #e8f5f1 0%, #d4ede6 100%);
+            border: 2px solid var(--fixed-income-green);
+        }
+
+        .legend-color.other {
+            background: linear-gradient(135deg, #f5f6f8 0%, #ebedf0 100%);
+            border: 2px solid #d8dce3;
+        }
+
+        .legend-text {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .takeaway-box {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            border-radius: 16px;
+            padding: 28px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .takeaway-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .takeaway-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .takeaway-list {
+            list-style: none;
+        }
+
+        .takeaway-list li {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .takeaway-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        /* Note Box */
+        .note-box {
+            margin-top: 35px;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff5d6 100%);
+            border: 2px solid #f0d97a;
+            border-radius: 14px;
+            padding: 22px 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .note-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .note-content h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .note-content p {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--soft-gray);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #ddd9d0;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .cfa-badge {
+            background: var(--primary-dark);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .balance-sheet-container {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .liability-row {
+                grid-template-columns: 1fr;
+            }
+
+            .liabilities-header {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">CFA Level I • Fixed Income</div>
+            <h1>Which Liabilities Are <span>Fixed-Income</span> Instruments?</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Key Insight -->
+            <div class="key-insight">
+                <h3>Core Principle</h3>
+                <p>
+                    <span class="highlight">Not all liabilities are fixed-income instruments</span>, but 
+                    <span class="highlight">all fixed-income instruments are liabilities</span>. 
+                    Fixed-income instruments are specifically <strong>loans</strong> and <strong>bonds</strong>—instruments 
+                    that can be settled in cash where the counterparty is an investor or a bank.
+                </p>
+            </div>
+
+            <!-- Balance Sheet Section -->
+            <div class="balance-sheet-section">
+                <h2 class="section-title">Corporate Balance Sheet: Liability Breakdown</h2>
+                
+                <div class="balance-sheet-container">
+                    <!-- Assets & Equity Side -->
+                    <div class="assets-equity-block">
+                        <div class="block assets-block short">
+                            <span class="block-label">📊 Short-Term Assets</span>
+                        </div>
+                        <div class="block assets-block long">
+                            <span class="block-label">🏢 Long-Term Assets</span>
+                        </div>
+                        <div class="block equity-block">
+                            <span class="block-label">💎 Equity</span>
+                        </div>
+                    </div>
+
+                    <!-- Liabilities Side -->
+                    <div class="liabilities-container">
+                        <div class="liabilities-header">
+                            <div class="header-label">Other Liabilities</div>
+                            <div class="header-label fixed-income">Fixed-Income Instruments</div>
+                        </div>
+
+                        <!-- Row 1 -->
+                        <div class="liability-row">
+                            <div class="liability-card other">
+                                <div class="liability-icon">📦</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Accounts Payable</div>
+                                    <div class="liability-desc">Obligations to suppliers</div>
+                                </div>
+                            </div>
+                            <div class="liability-card fixed-income">
+                                <div class="liability-icon">🏦</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Loans</div>
+                                    <div class="liability-desc">Obligations to banks</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="liability-row">
+                            <div class="liability-card other">
+                                <div class="liability-icon">👥</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Accrued Payroll</div>
+                                    <div class="liability-desc">Obligations to employees</div>
+                                </div>
+                            </div>
+                            <div class="liability-card fixed-income">
+                                <div class="liability-icon">📜</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Bonds</div>
+                                    <div class="liability-desc">Obligations to investors</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="liability-row">
+                            <div class="liability-card other">
+                                <div class="liability-icon">🔑</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Lease Liability</div>
+                                    <div class="liability-desc">Obligations to lessors</div>
+                                </div>
+                            </div>
+                            <div class="liability-card other">
+                                <div class="liability-icon">👴</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Pension Liability</div>
+                                    <div class="liability-desc">Obligations to retirees</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="liability-row">
+                            <div class="liability-card other">
+                                <div class="liability-icon">🎁</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Deferred Revenue</div>
+                                    <div class="liability-desc">Obligations to customers</div>
+                                </div>
+                            </div>
+                            <div class="liability-card other">
+                                <div class="liability-icon">🏛️</div>
+                                <div class="liability-info">
+                                    <div class="liability-name">Taxes Payable</div>
+                                    <div class="liability-desc">Obligations to governments</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="bottom-section">
+                <div class="legend-box">
+                    <h3 class="legend-title">Legend</h3>
+                    <div class="legend-item">
+                        <div class="legend-color fixed"></div>
+                        <span class="legend-text"><strong>Fixed-Income Instruments</strong> — Loans & Bonds</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color other"></div>
+                        <span class="legend-text"><strong>Other Liabilities</strong> — Not Fixed-Income</span>
+                    </div>
+                </div>
+
+                <div class="takeaway-box">
+                    <h3 class="takeaway-title">🎯 Key Takeaways</h3>
+                    <ul class="takeaway-list">
+                        <li>Fixed-income = Loans + Bonds only</li>
+                        <li>Must be settleable in cash</li>
+                        <li>Counterparty is an investor or bank</li>
+                        <li>Leases & pensions share characteristics but are excluded</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Note Box -->
+            <div class="note-box">
+                <div class="note-icon">📌</div>
+                <div class="note-content">
+                    <h4>Government Issuers Note</h4>
+                    <p>Government issuers are typically financed by <strong>bonds</strong>, not loans. 
+                    Exception: Loans from supranational organizations like the <strong>IMF</strong> (International Monetary Fund).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span class="footer-text">Fixed-Income Instrument Features • Learning Module 1</span>
+            <span class="cfa-badge">CFA® LEVEL I</span>
+        </div>
+    </div>
+</body>
+</html>
